@@ -1,0 +1,105 @@
+.planets-page {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 80px;
+}
+
+.planets-content {
+  padding: 2rem 0;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.page-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  font-size: 1.2rem;
+}
+
+.planets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.planet-card {
+  background: var(--gradient-card);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.planet-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.planet-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  background: var(--gradient-space);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.planet-image.mercury {
+  background: linear-gradient(45deg, #8c8c8c, #bfbfbf);
+}
+
+.planet-image.venus {
+  background: linear-gradient(45deg, #e6b87c, #f5d5a6);
+}
+
+.planet-image.earth {
+  background: linear-gradient(45deg, #6b93d6, #9ec2f0);
+}
+
+.planet-image.mars {
+  background: linear-gradient(45deg, #cc6b4f, #e68c6b);
+}
+
+.planet-card h3 {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.planet-card p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.planet-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.planet-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .planets-page {
+    padding-top: 100px;
+  }
+  
+  .planets-grid {
+    grid-template-columns: 1fr;
+  }
+}
