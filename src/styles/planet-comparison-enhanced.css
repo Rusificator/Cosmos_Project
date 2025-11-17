@@ -5,7 +5,7 @@
 }
 
 .comparison-enhanced-content {
-  padding: 2rem 0;
+  padding: 1rem 0;
   position: relative;
   z-index: 2;
 }
@@ -13,13 +13,14 @@
 /* Новый заголовок с анимацией */
 .comparison-enhanced-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   animation: fadeInUp 0.8s ease-out;
+  padding: 0 1rem;
 }
 
 .comparison-title {
   color: white;
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
   background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1);
   -webkit-background-clip: text;
@@ -27,6 +28,7 @@
   background-clip: text;
   background-size: 300% 300%;
   animation: gradientShift 4s ease infinite;
+  line-height: 1.2;
 }
 
 @keyframes gradientShift {
@@ -36,54 +38,74 @@
 
 /* Контейнер для сравнения */
 .comparison-container {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 /* Панель выбора планет */
 .planets-selection-panel {
   background: var(--gradient-card);
   border-radius: var(--border-radius);
-  padding: 2rem;
+  padding: 1.5rem;
   box-shadow: var(--shadow);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  height: fit-content;
-  position: sticky;
-  top: 100px;
+  order: 2;
 }
 
 .selection-title {
   color: white;
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
 .planet-selection-list {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex-direction: row;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: #667eea rgba(255, 255, 255, 0.1);
+}
+
+.planet-selection-list::-webkit-scrollbar {
+  height: 6px;
+}
+
+.planet-selection-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.planet-selection-list::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 3px;
 }
 
 .planet-selection-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 0.5rem;
+  padding: 1rem 0.75rem;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
   border: 2px solid transparent;
+  min-width: 100px;
+  flex-shrink: 0;
 }
 
 .planet-selection-item:hover {
   background: rgba(255, 255, 255, 0.1);
-  transform: translateX(5px);
+  transform: translateY(-2px);
 }
 
 .planet-selection-item.active {
@@ -92,8 +114,8 @@
 }
 
 .planet-selection-color {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -101,26 +123,29 @@
 .planet-selection-name {
   color: white;
   font-weight: 600;
-  flex: 1;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 .planet-selection-type {
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  text-align: center;
 }
 
 /* Основная область сравнения */
 .comparison-main-area {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
+  order: 1;
 }
 
 /* Визуализация размеров */
 .size-comparison-section {
   background: var(--gradient-card);
   border-radius: var(--border-radius);
-  padding: 2rem;
+  padding: 1.5rem;
   box-shadow: var(--shadow);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -128,19 +153,18 @@
 
 .section-title {
   color: white;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
 .planets-size-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: flex-end;
   gap: 1rem;
-  height: 200px;
-  margin: 2rem 0;
-  position: relative;
+  margin: 1.5rem 0;
 }
 
 .planet-size-item {
@@ -148,79 +172,143 @@
   flex-direction: column;
   align-items: center;
   transition: all 0.5s ease;
+  flex: 1;
+  min-width: 80px;
+  max-width: 120px;
 }
 
 .planet-size-visual {
   border-radius: 50%;
   transition: all 0.5s ease;
   position: relative;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  aspect-ratio: 1/1;
 }
 
 .planet-size-visual::after {
   content: '';
   position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
   border-radius: 50%;
   background: inherit;
-  filter: blur(10px);
+  filter: blur(8px);
   opacity: 0.3;
   z-index: -1;
 }
 
 .planet-size-name {
   color: white;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   font-weight: 600;
   text-align: center;
+  font-size: 0.9rem;
 }
 
 .planet-size-diameter {
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  text-align: center;
 }
 
-/* Радиальные диаграммы */
-.radial-charts-section {
+/* НОВАЯ СТРУКТУРА: Отдельные строки для каждой планеты */
+.planets-comparison-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.planet-comparison-row {
+  background: var(--gradient-card);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.planet-row-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.planet-row-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.planet-row-info {
+  flex: 1;
+}
+
+.planet-row-name {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.planet-row-type {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Радиальные диаграммы для каждой планеты */
+.planet-radial-charts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
 }
 
 .radial-chart-container {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1rem;
   text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.radial-chart-container:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .radial-chart-title {
   color: white;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .radial-chart {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
   margin: 0 auto;
 }
 
 .radial-chart-bg {
   fill: none;
   stroke: rgba(255, 255, 255, 0.1);
-  stroke-width: 8;
+  stroke-width: 6;
 }
 
 .radial-chart-fill {
   fill: none;
-  stroke-width: 8;
+  stroke-width: 6;
   stroke-linecap: round;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
@@ -234,58 +322,60 @@
   transform: translate(-50%, -50%);
   color: white;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
 }
 
 .radial-chart-label {
   color: var(--text-secondary);
   margin-top: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 /* Сравнительные шкалы */
 .comparison-scales {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .comparison-scale {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1.25rem;
 }
 
 .scale-title {
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-bottom: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .scale-unit {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: normal;
 }
 
 .scale-bars {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .scale-bar {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .scale-bar-color {
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -293,21 +383,23 @@
 .scale-bar-name {
   color: white;
   font-weight: 600;
-  min-width: 100px;
+  min-width: 60px;
+  font-size: 0.85rem;
 }
 
 .scale-bar-track {
   flex: 1;
-  height: 20px;
+  height: 16px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
   position: relative;
+  min-width: 0;
 }
 
 .scale-bar-fill {
   height: 100%;
-  border-radius: 10px;
+  border-radius: 8px;
   transition: width 1s ease;
   position: relative;
 }
@@ -334,52 +426,78 @@
 .scale-bar-value {
   color: white;
   font-weight: 600;
-  min-width: 80px;
+  min-width: 60px;
   text-align: right;
+  font-size: 0.85rem;
 }
 
 /* Инфографика */
 .infographic-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 .infographic-card {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1.25rem;
   text-align: center;
   transition: transform 0.3s ease;
 }
 
 .infographic-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
 }
 
 .infographic-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
 }
 
 .infographic-value {
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .infographic-label {
   color: var(--text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+/* Кнопки */
+.back-to-planets-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
   font-size: 0.9rem;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.back-to-planets-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
 /* Анимации */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -391,73 +509,176 @@
   animation: fadeInUp 0.6s ease-out;
 }
 
-/* Адаптивность */
-@media (max-width: 1024px) {
+/* Планшетная версия */
+@media (min-width: 768px) {
+  .comparison-enhanced-content {
+    padding: 2rem 0;
+  }
+
   .comparison-container {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    padding: 0 2rem;
   }
-  
+
   .planets-selection-panel {
-    position: static;
-    margin-bottom: 2rem;
+    order: 1;
+    position: sticky;
+    top: 100px;
+    height: fit-content;
   }
-  
+
+  .comparison-main-area {
+    order: 2;
+  }
+
   .planet-selection-list {
-    flex-direction: row;
-    overflow-x: auto;
-    padding-bottom: 1rem;
+    flex-direction: column;
+    overflow-x: visible;
+    padding-bottom: 0;
   }
-  
+
   .planet-selection-item {
-    min-width: 150px;
+    flex-direction: row;
+    min-width: auto;
+    padding: 1rem;
+  }
+
+  .comparison-title {
+    font-size: 3rem;
+  }
+
+  .planet-radial-charts {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .radial-chart {
+    width: 100px;
+    height: 100px;
+  }
+
+  .infographic-section {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .back-to-planets-btn {
+    width: auto;
+    margin-top: 0;
   }
 }
 
-@media (max-width: 768px) {
-  .planet-comparison-enhanced {
-    padding-top: 100px;
+/* Десктопная версия */
+@media (min-width: 1024px) {
+  .comparison-container {
+    padding: 0;
   }
-  
-  .comparison-title {
-    font-size: 2.5rem;
-  }
-  
-  .radial-charts-section {
-    grid-template-columns: 1fr;
-  }
-  
-  .planets-size-container {
-    flex-wrap: wrap;
-    height: auto;
+
+  .planet-radial-charts {
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
   }
-  
-  .infographic-section {
-    grid-template-columns: repeat(2, 1fr);
+
+  .radial-chart {
+    width: 120px;
+    height: 120px;
+  }
+
+  .radial-chart-value {
+    font-size: 1.1rem;
+  }
+
+  .planets-size-container {
+    gap: 2rem;
+  }
+
+  .planet-size-item {
+    min-width: 100px;
+    max-width: 150px;
+  }
+
+  .planet-row-header {
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .planet-row-icon {
+    width: 80px;
+    height: 80px;
+    font-size: 2.5rem;
+  }
+
+  .planet-row-name {
+    font-size: 1.8rem;
   }
 }
 
-@media (max-width: 480px) {
+/* Большие экраны */
+@media (min-width: 1200px) {
+  .planet-comparison-row {
+    padding: 2rem;
+  }
+}
+
+/* Особые случаи для очень маленьких экранов */
+@media (max-width: 360px) {
   .comparison-title {
     font-size: 2rem;
   }
-  
-  .size-comparison-section,
-  .radial-chart-container,
-  .comparison-scale {
-    padding: 1rem;
+
+  .planet-selection-item {
+    min-width: 85px;
+    padding: 0.75rem 0.5rem;
   }
-  
+
+  .planet-selection-name {
+    font-size: 0.8rem;
+  }
+
+  .planet-radial-charts {
+    grid-template-columns: 1fr;
+  }
+
   .infographic-section {
     grid-template-columns: 1fr;
   }
-  
+
   .scale-bar {
     flex-wrap: wrap;
+    gap: 0.5rem;
   }
-  
-  .scale-bar-name {
-    min-width: 80px;
-    font-size: 0.9rem;
+
+  .scale-bar-track {
+    order: 3;
+    flex-basis: 100%;
+    margin-top: 0.25rem;
+  }
+}
+
+/* Улучшение для ландшафтной ориентации на мобильных */
+@media (max-height: 500px) and (orientation: landscape) {
+  .planet-comparison-enhanced {
+    padding-top: 70px;
+  }
+
+  .comparison-enhanced-header {
+    margin-bottom: 1rem;
+  }
+
+  .comparison-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .planets-size-container {
+    height: 120px;
+    margin: 1rem 0;
+  }
+
+  .planet-size-name {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
   }
 }

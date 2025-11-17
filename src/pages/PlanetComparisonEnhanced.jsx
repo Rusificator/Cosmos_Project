@@ -8,16 +8,16 @@ const PlanetComparisonEnhanced = () => {
   const [activePlanet, setActivePlanet] = useState('earth');
 
   const planets = [
-    { id: 'sun', name: 'Солнце', type: 'star', color: '#ff6b00' },
-    { id: 'mercury', name: 'Меркурий', type: 'rocky', color: '#8c8c8c' },
-    { id: 'venus', name: 'Венера', type: 'rocky', color: '#e6b87c' },
-    { id: 'earth', name: 'Земля', type: 'rocky', color: '#6b93d6' },
-    { id: 'mars', name: 'Марс', type: 'rocky', color: '#cc6b4f' },
-    { id: 'jupiter', name: 'Юпитер', type: 'gas', color: '#d8ca9d' },
-    { id: 'saturn', name: 'Сатурн', type: 'gas', color: '#e3d9b1' },
-    { id: 'uranus', name: 'Уран', type: 'ice', color: '#9ec2f0' },
-    { id: 'neptune', name: 'Нептун', type: 'ice', color: '#5b9bd5' },
-    { id: 'pluto', name: 'Плутон', type: 'dwarf', color: '#a67c52' }
+    { id: 'sun', name: 'Солнце', type: 'star', color: '#ff6b00', icon: '☀️' },
+    { id: 'mercury', name: 'Меркурий', type: 'rocky', color: '#8c8c8c', icon: '☿' },
+    { id: 'venus', name: 'Венера', type: 'rocky', color: '#e6b87c', icon: '♀' },
+    { id: 'earth', name: 'Земля', type: 'rocky', color: '#6b93d6', icon: '♁' },
+    { id: 'mars', name: 'Марс', type: 'rocky', color: '#cc6b4f', icon: '♂' },
+    { id: 'jupiter', name: 'Юпитер', type: 'gas', color: '#d8ca9d', icon: '♃' },
+    { id: 'saturn', name: 'Сатурн', type: 'gas', color: '#e3d9b1', icon: '♄' },
+    { id: 'uranus', name: 'Уран', type: 'ice', color: '#9ec2f0', icon: '♅' },
+    { id: 'neptune', name: 'Нептун', type: 'ice', color: '#5b9bd5', icon: '♆' },
+    { id: 'pluto', name: 'Плутон', type: 'dwarf', color: '#a67c52', icon: '⯓' }
   ];
 
   const planetDetails = {
@@ -145,6 +145,14 @@ const PlanetComparisonEnhanced = () => {
     return num.toString();
   }, []);
 
+  const formatNumberMobile = useCallback((num) => {
+    if (num >= 1e12) return (num / 1e12).toFixed(1) + 'T';
+    if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
+    if (num >= 1e6) return (num / 1e6).toFixed(1) + 'M';
+    if (num >= 1e3) return (num / 1e3).toFixed(1) + 'K';
+    return num.toString();
+  }, []);
+
   const getPlanetType = useCallback((type) => {
     const types = {
       star: 'Звезда',
@@ -165,6 +173,7 @@ const PlanetComparisonEnhanced = () => {
         name: planet?.name || '',
         type: planet?.type || '',
         color: planet?.color || '#666',
+        icon: planet?.icon || '🪐',
         ...details
       };
     });
@@ -197,32 +206,35 @@ const PlanetComparisonEnhanced = () => {
   const maxValues = getMaxValues();
 
   const calculateRelativeSize = useCallback((diameter) => {
+    if (!comparisonData.length) return 50;
+    
     const maxDiameter = Math.max(...comparisonData.map(p => p.diameter));
-    const minSize = 30;
-    const maxSize = 150;
+    const minSize = window.innerWidth < 768 ? 40 : 50;
+    const maxSize = window.innerWidth < 768 ? 80 : 150;
+    
     return minSize + (diameter / maxDiameter) * (maxSize - minSize);
   }, [comparisonData]);
 
   const RadialChart = ({ value, maxValue, color, title, unit }) => {
     const percentage = Math.min((value / maxValue) * 100, 100);
-    const circumference = 2 * Math.PI * 45;
+    const circumference = 2 * Math.PI * (window.innerWidth < 768 ? 35 : 45);
     const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
     return (
       <div className="radial-chart-container fade-in">
         <div className="radial-chart-title">{title}</div>
         <div className="radial-chart">
-          <svg width="120" height="120" viewBox="0 0 120 120">
+          <svg width={window.innerWidth < 768 ? "80" : "120"} height={window.innerWidth < 768 ? "80" : "120"} viewBox="0 0 120 120">
             <circle
               cx="60"
               cy="60"
-              r="45"
+              r={window.innerWidth < 768 ? "35" : "45"}
               className="radial-chart-bg"
             />
             <circle
               cx="60"
               cy="60"
-              r="45"
+              r={window.innerWidth < 768 ? "35" : "45"}
               className="radial-chart-fill"
               stroke={color}
               strokeDasharray={circumference}
@@ -230,11 +242,101 @@ const PlanetComparisonEnhanced = () => {
             />
           </svg>
           <div className="radial-chart-value">
-            {unit === 'ratio' ? value.toFixed(1) : formatNumber(value)}
+            {unit === 'ratio' ? value.toFixed(1) : 
+             window.innerWidth < 768 ? formatNumberMobile(value) : formatNumber(value)}
           </div>
         </div>
         <div className="radial-chart-label">
           {unit !== 'ratio' && unit}
+        </div>
+      </div>
+    );
+  };
+
+  const PlanetComparisonRow = ({ planet }) => {
+    const isMobile = window.innerWidth < 768;
+
+    return (
+      <div className="planet-comparison-row fade-in">
+        <div className="planet-row-header">
+          <div 
+            className="planet-row-icon"
+            style={{ 
+              background: `linear-gradient(135deg, ${planet.color}, ${planet.color}dd)`,
+              color: 'white'
+            }}
+          >
+            {planet.icon}
+          </div>
+          <div className="planet-row-info">
+            <h3 className="planet-row-name">{planet.name}</h3>
+            <div className="planet-row-type">{getPlanetType(planet.type)}</div>
+          </div>
+        </div>
+
+        <div className="planet-radial-charts">
+          <RadialChart
+            value={planet.diameter}
+            maxValue={maxValues.diameter}
+            color={planet.color}
+            title="Диаметр"
+            unit="км"
+          />
+          <RadialChart
+            value={planet.mass}
+            maxValue={maxValues.mass}
+            color={planet.color}
+            title="Масса"
+            unit="кг"
+          />
+          <RadialChart
+            value={planet.gravity}
+            maxValue={maxValues.gravity}
+            color={planet.color}
+            title="Гравитация"
+            unit="м/с²"
+          />
+          <RadialChart
+            value={planet.density}
+            maxValue={maxValues.density}
+            color={planet.color}
+            title="Плотность"
+            unit="г/см³"
+          />
+        </div>
+
+        <div className="infographic-section">
+          <div className="infographic-card">
+            <div className="infographic-icon">🕐</div>
+            <div className="infographic-value" style={{ color: planet.color }}>
+              {planet.dayLength}
+            </div>
+            <div className="infographic-label">Длина суток (часы)</div>
+          </div>
+          
+          <div className="infographic-card">
+            <div className="infographic-icon">🌡️</div>
+            <div className="infographic-value" style={{ color: planet.color }}>
+              {planet.temperature}°C
+            </div>
+            <div className="infographic-label">Средняя температура</div>
+          </div>
+          
+          <div className="infographic-card">
+            <div className="infographic-icon">📅</div>
+            <div className="infographic-value" style={{ color: planet.color }}>
+              {planet.orbitPeriod}
+            </div>
+            <div className="infographic-label">Год (земных дней)</div>
+          </div>
+          
+          <div className="infographic-card">
+            <div className="infographic-icon">🛰️</div>
+            <div className="infographic-value" style={{ color: planet.color }}>
+              {planet.moons}
+            </div>
+            <div className="infographic-label">Количество спутников</div>
+          </div>
         </div>
       </div>
     );
@@ -304,61 +406,23 @@ const PlanetComparisonEnhanced = () => {
                         <div
                           className="planet-size-visual"
                           style={{
-                            width: size,
-                            height: size,
+                            width: `${size}px`,
+                            height: `${size}px`,
                             backgroundColor: planet.color,
                             background: `radial-gradient(circle at 30% 30%, ${planet.color}cc, ${planet.color})`
                           }}
                         />
                         <div className="planet-size-name">{planet.name}</div>
                         <div className="planet-size-diameter">
-                          {formatNumber(planet.diameter)} км
+                          {window.innerWidth < 768 ? 
+                            formatNumberMobile(planet.diameter) + ' км' : 
+                            formatNumber(planet.diameter) + ' км'
+                          }
                         </div>
                       </div>
                     );
                   })}
                 </div>
-              </div>
-
-              {/* Радиальные диаграммы */}
-              <div className="radial-charts-section">
-                {comparisonData.map(planet => (
-                  <div key={planet.id} className="fade-in">
-                    <h3 className="section-title" style={{ color: planet.color }}>
-                      {planet.name}
-                    </h3>
-                    <div className="radial-charts-grid">
-                      <RadialChart
-                        value={planet.diameter}
-                        maxValue={maxValues.diameter}
-                        color={planet.color}
-                        title="Диаметр"
-                        unit="км"
-                      />
-                      <RadialChart
-                        value={planet.mass}
-                        maxValue={maxValues.mass}
-                        color={planet.color}
-                        title="Масса"
-                        unit="кг"
-                      />
-                      <RadialChart
-                        value={planet.gravity}
-                        maxValue={maxValues.gravity}
-                        color={planet.color}
-                        title="Гравитация"
-                        unit="м/с²"
-                      />
-                      <RadialChart
-                        value={planet.density}
-                        maxValue={maxValues.density}
-                        color={planet.color}
-                        title="Плотность"
-                        unit="г/см³"
-                      />
-                    </div>
-                  </div>
-                ))}
               </div>
 
               {/* Сравнительные шкалы */}
@@ -424,40 +488,13 @@ const PlanetComparisonEnhanced = () => {
                 </div>
               </div>
 
-              {/* Инфографика */}
-              <div className="infographic-section">
+              {/* Отдельные строки для каждой планеты */}
+              <div className="planets-comparison-rows">
                 {comparisonData.map(planet => (
-                  <div key={planet.id} className="infographic-card fade-in">
-                    <div className="infographic-icon">
-                      {planet.id === 'sun' ? '☀️' : 
-                       planet.id === 'mercury' ? '☿' :
-                       planet.id === 'venus' ? '♀' :
-                       planet.id === 'earth' ? '♁' :
-                       planet.id === 'mars' ? '♂' :
-                       planet.id === 'jupiter' ? '♃' :
-                       planet.id === 'saturn' ? '♄' :
-                       planet.id === 'uranus' ? '♅' :
-                       planet.id === 'neptune' ? '♆' : '⯓'}
-                    </div>
-                    <div className="infographic-value" style={{ color: planet.color }}>
-                      {planet.dayLength}
-                    </div>
-                    <div className="infographic-label">Длина суток (часы)</div>
-                    
-                    <div style={{ marginTop: '1rem' }}>
-                      <div className="infographic-value" style={{ color: planet.color }}>
-                        {planet.temperature}°C
-                      </div>
-                      <div className="infographic-label">Средняя температура</div>
-                    </div>
-                    
-                    <div style={{ marginTop: '1rem' }}>
-                      <div className="infographic-value" style={{ color: planet.color }}>
-                        {planet.orbitPeriod}
-                      </div>
-                      <div className="infographic-label">Год (земных дней)</div>
-                    </div>
-                  </div>
+                  <PlanetComparisonRow 
+                    key={planet.id} 
+                    planet={planet} 
+                  />
                 ))}
               </div>
             </div>
