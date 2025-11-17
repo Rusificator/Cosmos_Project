@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
-
+import PlanetDetailPage from './pages/PlanetDetailPage';
 import SmoothScroll from './components/SmoothScroll.jsx';
 import HomePage from './pages/HomePage.jsx';
 import PlanetsPage from './pages/PlanetsPage.jsx';
@@ -15,6 +16,7 @@ import './styles/main.css';
 
 function App() {
   return (
+     
     <Router future={{
       v7_startTransition: true,
       v7_relativeSplatPath: true
@@ -26,6 +28,7 @@ function App() {
           <Routes>
             <Route path="/" element={<SmoothScroll><HomePage /></SmoothScroll>} />
             <Route path="/planets" element={<SmoothScroll><PlanetsPage /></SmoothScroll>} />
+             <Route path="/planets/:planetId" element={<PlanetDetailPage />} />
              <Route path="/missions" element={<SmoothScroll><MissionsPage /></SmoothScroll>} />
             <Route path="/gallery" element={<SmoothScroll><GalleryPage /></SmoothScroll>} />
             <Route path="/weight-calculator" element={<SmoothScroll><WeightCalculatorPage /></SmoothScroll>} />
@@ -36,6 +39,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    
   );
 }
 
