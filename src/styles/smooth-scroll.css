@@ -1,0 +1,54 @@
+/* Дополнительные стили для плавных переходов */
+.smooth-section {
+  scroll-snap-align: start;
+  scroll-margin-top: 80px;
+}
+
+/* Градиентное затемнение в начале и конце скролла */
+.scroll-gradient::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(180deg, 
+    rgba(10, 15, 35, 0.8) 0%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: 999;
+}
+
+.scroll-gradient::after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(0deg, 
+    rgba(10, 15, 35, 0.8) 0%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* Параллакс эффект для фона при скролле */
+.parallax-bg {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Индикатор прогресса скролла */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  z-index: 1001;
+  transition: width 0.1s ease;
+}
