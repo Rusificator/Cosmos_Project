@@ -9,7 +9,6 @@ const PlanetsPage = () => {
       name: 'Солнце',
       description: 'Звезда в центре нашей Солнечной системы',
       type: 'star',
-      distance: '0 км',
       diameter: '1,391,000 км',
       facts: ['Состоит из водорода и гелия', 'Температура ядра 15 млн °C', 'Источник 99.86% массы системы'],
       color: 'linear-gradient(45deg, #ff6b00, #ff9500, #ffaa00)',
@@ -168,9 +167,9 @@ const PlanetsPage = () => {
             {/* Кнопка сравнения планет */}
             <div className="comparison-section">
               <Link to="/planet-comparison" className="comparison-btn">
-                <span className="comparison-icon">⚖️</span>
-                Сравнить планеты
-              </Link>
+  <span className="comparison-icon">📊</span>
+  Сравнить планеты
+</Link>
               <p className="comparison-description">
                 Сравните размеры, массу и другие характеристики планет Солнечной системы
               </p>
@@ -200,7 +199,7 @@ const PlanetsPage = () => {
                   <div className="planet-stats">
                     <div className="planet-stat">
                       <span className="stat-label">
-                        {planet.type === 'star' ? 'Диаметр:' : 'Расстояние от Солнца:'}
+                        {planet.type === 'star' ? '' : 'Расстояние от Солнца:'}
                       </span>
                       <span className="stat-value">{planet.distance}</span>
                     </div>
