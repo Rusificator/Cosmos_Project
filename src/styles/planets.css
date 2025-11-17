@@ -333,3 +333,177 @@
     padding: 0.875rem;
   }
 }
+
+
+
+/* Секция сравнения планет */
+.comparison-section {
+  text-align: center;
+  margin: 3rem auto 2rem;
+  max-width: 600px;
+}
+
+.comparison-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  margin-bottom: 1rem;
+}
+
+.comparison-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.comparison-icon {
+  font-size: 1.3rem;
+}
+
+.comparison-description {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Широкая карточка для Солнца */
+.planet-card.wide-card {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  text-align: left;
+  padding: 2.5rem;
+}
+
+.planet-card.wide-card .planet-image {
+  width: 200px;
+  height: 200px;
+  margin: 0;
+}
+
+.planet-card.wide-card .planet-image.wide-image {
+  box-shadow: 0 0 50px rgba(255, 107, 0, 0.5),
+              0 0 100px rgba(255, 149, 0, 0.3),
+              inset 0 0 50px rgba(255, 255, 255, 0.2);
+}
+
+.planet-card.wide-card .planet-icon {
+  font-size: 5rem;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+}
+
+.planet-card.wide-card .planet-name {
+  font-size: 2.2rem;
+  text-align: left;
+}
+
+.planet-card.wide-card .planet-description {
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+.planet-card.wide-card .planet-stats {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.planet-card.wide-card .planet-facts {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.planet-card.wide-card .planet-btn {
+  grid-column: 1 / -1;
+  margin-top: 1rem;
+}
+
+/* Анимация пульсации для Солнца */
+@keyframes sunPulse {
+  0% {
+    box-shadow: 0 0 50px rgba(255, 107, 0, 0.5),
+                0 0 100px rgba(255, 149, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 70px rgba(255, 107, 0, 0.7),
+                0 0 140px rgba(255, 149, 0, 0.5),
+                0 0 200px rgba(255, 170, 0, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 50px rgba(255, 107, 0, 0.5),
+                0 0 100px rgba(255, 149, 0, 0.3);
+  }
+}
+
+.planet-card.wide-card .planet-image {
+  animation: sunPulse 3s ease-in-out infinite;
+}
+
+/* Адаптивность для широкой карточки */
+@media (max-width: 1024px) {
+  .planet-card.wide-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  
+  .planet-card.wide-card .planet-image {
+    margin: 0 auto;
+  }
+  
+  .planet-card.wide-card .planet-name,
+  .planet-card.wide-card .planet-description {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .planet-card.wide-card {
+    padding: 1.5rem;
+  }
+  
+  .planet-card.wide-card .planet-image {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .planet-card.wide-card .planet-icon {
+    font-size: 4rem;
+  }
+  
+  .planet-card.wide-card .planet-name {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .comparison-btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+  
+  .comparison-icon {
+    font-size: 1.1rem;
+  }
+  
+  .planet-card.wide-card {
+    padding: 1.25rem;
+  }
+  
+  .planet-card.wide-card .planet-image {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .planet-card.wide-card .planet-icon {
+    font-size: 3.5rem;
+  }
+}

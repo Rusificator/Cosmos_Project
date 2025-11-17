@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
-import PlanetDetailPage from './pages/PlanetDetailPage';
+import PlanetDetailPage from './pages/PlanetDetailPage.jsx';
+import PlanetComparisonPage from './pages/PlanetComparisonPage.jsx';
 import SmoothScroll from './components/SmoothScroll.jsx';
 import HomePage from './pages/HomePage.jsx';
 import PlanetsPage from './pages/PlanetsPage.jsx';
@@ -29,6 +30,7 @@ function App() {
             <Route path="/" element={<SmoothScroll><HomePage /></SmoothScroll>} />
             <Route path="/planets" element={<SmoothScroll><PlanetsPage /></SmoothScroll>} />
              <Route path="/planets/:planetId" element={<PlanetDetailPage />} />
+              <Route path="/planet-comparison" element={<PlanetComparisonPage />} />
              <Route path="/missions" element={<SmoothScroll><MissionsPage /></SmoothScroll>} />
             <Route path="/gallery" element={<SmoothScroll><GalleryPage /></SmoothScroll>} />
             <Route path="/weight-calculator" element={<SmoothScroll><WeightCalculatorPage /></SmoothScroll>} />

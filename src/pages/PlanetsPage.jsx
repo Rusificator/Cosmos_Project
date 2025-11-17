@@ -4,6 +4,18 @@ import '../styles/planets.css';
 
 const PlanetsPage = () => {
   const planets = [
+     {
+      id: 'sun',
+      name: 'Солнце',
+      description: 'Звезда в центре нашей Солнечной системы',
+      type: 'star',
+      distance: '0 км',
+      diameter: '1,391,000 км',
+      facts: ['Состоит из водорода и гелия', 'Температура ядра 15 млн °C', 'Источник 99.86% массы системы'],
+      color: 'linear-gradient(45deg, #ff6b00, #ff9500, #ffaa00)',
+      icon: '☀️',
+      isWide: true
+    },
     {
       id: 'mercury',
       name: 'Меркурий',
@@ -107,6 +119,7 @@ const PlanetsPage = () => {
 
   const getPlanetType = (type) => {
     const types = {
+      star: 'Звезда',
       rocky: 'Каменная планета',
       gas: 'Газовый гигант',
       ice: 'Ледяной гигант',
@@ -128,12 +141,16 @@ const PlanetsPage = () => {
       <div className="planets-content">
         <div className="container">
           <div className="planets-header">
-            <h1 className="page-title">Планеты Солнечной системы</h1>
+            <h1 className="page-title">Солнечная система</h1>
             <p className="page-subtitle">
-              Исследуйте удивительные миры, вращающиеся вокруг нашего Солнца
+              Исследуйте наше Солнце, планеты и другие небесные тела, вращающиеся вокруг звезды
             </p>
             
             <div className="solar-system-stats">
+              <div className="stat-card">
+                <div className="stat-number">1</div>
+                <div className="stat-label">Звезда</div>
+              </div>
               <div className="stat-card">
                 <div className="stat-number">8</div>
                 <div className="stat-label">Планет</div>
@@ -146,18 +163,28 @@ const PlanetsPage = () => {
                 <div className="stat-number">200+</div>
                 <div className="stat-label">Спутников</div>
               </div>
-              <div className="stat-card">
-                <div className="stat-number">4.6</div>
-                <div className="stat-label">Млрд лет</div>
-              </div>
+            </div>
+
+            {/* Кнопка сравнения планет */}
+            <div className="comparison-section">
+              <Link to="/planet-comparison" className="comparison-btn">
+                <span className="comparison-icon">⚖️</span>
+                Сравнить планеты
+              </Link>
+              <p className="comparison-description">
+                Сравните размеры, массу и другие характеристики планет Солнечной системы
+              </p>
             </div>
           </div>
 
           <div className="planets-grid">
             {planets.map(planet => (
-              <div key={planet.id} className="planet-card">
+              <div 
+                key={planet.id} 
+                className={`planet-card ${planet.isWide ? 'wide-card' : ''}`}
+              >
                 <div 
-                  className="planet-image"
+                  className={`planet-image ${planet.isWide ? 'wide-image' : ''}`}
                   style={{ background: planet.color }}
                 >
                   <span className="planet-icon">{planet.icon}</span>
@@ -172,7 +199,9 @@ const PlanetsPage = () => {
                   
                   <div className="planet-stats">
                     <div className="planet-stat">
-                      <span className="stat-label">Расстояние от Солнца:</span>
+                      <span className="stat-label">
+                        {planet.type === 'star' ? 'Диаметр:' : 'Расстояние от Солнца:'}
+                      </span>
                       <span className="stat-value">{planet.distance}</span>
                     </div>
                     <div className="planet-stat">
@@ -184,7 +213,7 @@ const PlanetsPage = () => {
                   <div className="planet-facts">
                     <h4>Интересные факты:</h4>
                     <ul>
-                      {planet.facts.slice(0, 2).map((fact, index) => (
+                      {planet.facts.slice(0, planet.isWide ? 3 : 2).map((fact, index) => (
                         <li key={index}>{fact}</li>
                       ))}
                     </ul>
