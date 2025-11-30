@@ -19,7 +19,7 @@ const HomePage = () => {
           className="background-video"
           playsInline
         >
-          <source src="../public/video/solar-system.mp4" type="video/mp4" />
+          <source src="/video/solar-system.mp4" type="video/mp4" />
           Ваш браузер не поддерживает видео.
         </video>
         <div className="video-overlay"></div>
