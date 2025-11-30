@@ -86,6 +86,16 @@ const Header = () => {
                         Космическая викторина
                       </Link>
                     </li>
+                    <li>
+                      <Link 
+                        to="/cosmic-address" 
+                        className="dropdown-link"
+                        onClick={closeMobileMenu}
+                      >
+                        <span className="dropdown-icon">🌍</span>
+                        Космический адрес
+                      </Link>
+                    </li>
                   </ul>
                 </li>
 

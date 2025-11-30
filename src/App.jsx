@@ -14,6 +14,7 @@ import MissionsPage from './pages/MissionsPage.jsx';
 import GalleryPage from './pages/GalleryPage.jsx';
 import WeightCalculatorPage from './pages/WeightCalculatorPage.jsx';
 import SpaceQuizPage from './pages/SpaceQuizPage.jsx';
+import CosmicAddressPage from './pages/CosmicAddressPage';
 import './styles/main.css';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path="/gallery" element={<SmoothScroll><GalleryPage /></SmoothScroll>} />
             <Route path="/weight-calculator" element={<SmoothScroll><WeightCalculatorPage /></SmoothScroll>} />
             <Route path="/space-quiz" element={<SmoothScroll><SpaceQuizPage /></SmoothScroll>} />
+             <Route path="/cosmic-address" element={<CosmicAddressPage />} />
           </Routes>
         </main>
         <ScrollToTop />
