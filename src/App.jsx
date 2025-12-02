@@ -15,6 +15,7 @@ import GalleryPage from './pages/GalleryPage.jsx';
 import WeightCalculatorPage from './pages/WeightCalculatorPage.jsx';
 import SpaceQuizPage from './pages/SpaceQuizPage.jsx';
 import CosmicAddressPage from './pages/CosmicAddressPage';
+import SolarSystemModelPage from './pages/SolarSystemModelPage.jsx';
 import './styles/main.css';
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <Route path="/weight-calculator" element={<SmoothScroll><WeightCalculatorPage /></SmoothScroll>} />
             <Route path="/space-quiz" element={<SmoothScroll><SpaceQuizPage /></SmoothScroll>} />
              <Route path="/cosmic-address" element={<CosmicAddressPage />} />
+             <Route path="/solar-model" element={<SmoothScroll><SolarSystemModelPage /></SmoothScroll>} />
           </Routes>
         </main>
         <ScrollToTop />

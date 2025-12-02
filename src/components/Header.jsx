@@ -96,6 +96,16 @@ const Header = () => {
                         Космический адрес
                       </Link>
                     </li>
+                    <li>
+  <Link 
+    to="/solar-model" 
+    className="dropdown-link"
+    onClick={closeMobileMenu}
+  >
+    <span className="dropdown-icon">🌐</span>
+    3D Модель Солнечной системы
+  </Link>
+</li>
                   </ul>
                 </li>
 

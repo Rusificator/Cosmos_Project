@@ -1,0 +1,122 @@
+/* src/styles/solar-model.css */
+.solar-model-page {
+  padding: 2rem 0 4rem;
+  min-height: calc(100vh - 200px);
+}
+
+.model-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.model-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.title-icon {
+  margin-right: 0.5rem;
+  font-size: 2.2rem;
+  vertical-align: middle;
+}
+
+.model-subtitle {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.model-requirements {
+  background-color: rgba(255, 193, 7, 0.15);
+  border-left: 4px solid #ffc107;
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.model-requirements p {
+  margin: 0;
+  color: #e6a700;
+}
+
+.model-container {
+  width: 100%;
+  margin: 0 auto 3rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  background-color: #000; /* Черный фон подходит для космической модели */
+}
+
+.solar-iframe {
+  display: block;
+  width: 100%;
+  height: 700px; /* Высота для десктопа */
+  border: none;
+}
+
+.model-instructions {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: var(--card-bg);
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.model-instructions h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.model-instructions ul {
+  padding-left: 1.2rem;
+  line-height: 1.7;
+}
+
+.model-instructions li {
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.model-note {
+  font-style: italic;
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border-color);
+  color: var(--text-secondary);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .model-title {
+    font-size: 2rem;
+  }
+  
+  .solar-iframe {
+    height: 500px; /* Меньшая высота для планшетов */
+    min-height: 400px; /* Минимальная высота, указанная разработчиком[citation:10] */
+  }
+}
+
+@media (max-width: 480px) {
+  .solar-model-page {
+    padding: 1.5rem 0 3rem;
+  }
+  
+  .solar-iframe {
+    height: 450px;
+  }
+  
+  .model-instructions {
+    padding: 1rem;
+  }
+}
