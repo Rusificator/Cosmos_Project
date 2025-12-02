@@ -1,6 +1,7 @@
 /* src/styles/solar-model.css */
 .solar-model-page {
-  padding: 2rem 0 4rem;
+  padding-top: 100px; 
+  padding-bottom: 4rem;
   min-height: calc(100vh - 200px);
 }
 
@@ -10,6 +11,7 @@
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  
 }
 
 .model-title {
@@ -100,7 +102,10 @@
   .model-title {
     font-size: 2rem;
   }
-  
+  .solar-model-page {
+    padding-top: 100px; /* Другая высота для мобильной шапки */
+   
+  }
   .solar-iframe {
     height: 500px; /* Меньшая высота для планшетов */
     min-height: 400px; /* Минимальная высота, указанная разработчиком[citation:10] */
@@ -110,6 +115,7 @@
 @media (max-width: 480px) {
   .solar-model-page {
     padding: 1.5rem 0 3rem;
+    padding-top: 100px;
   }
   
   .solar-iframe {
