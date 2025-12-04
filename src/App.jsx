@@ -18,6 +18,8 @@ import CosmicAddressPage from './pages/CosmicAddressPage';
 import SolarSystemModelPage from './pages/SolarSystemModelPage.jsx';
 import './styles/main.css';
 
+import GalleryDetailPage from './pages/GalleryDetailPage.jsx';
+
 function App() {
   return (
      
@@ -40,6 +42,7 @@ function App() {
             <Route path="/space-quiz" element={<SmoothScroll><SpaceQuizPage /></SmoothScroll>} />
              <Route path="/cosmic-address" element={<CosmicAddressPage />} />
              <Route path="/solar-model" element={<SmoothScroll><SolarSystemModelPage /></SmoothScroll>} />
+             <Route path="/gallery/:imageId" element={<GalleryDetailPage />} />
           </Routes>
         </main>
         <ScrollToTop />

@@ -10,6 +10,7 @@ const HomePage = () => {
     navigate('/planets');
   };
 
+  
   const galleryImages = [
     { id: 1, src: '/gallery/earth.jpg', alt: 'Земля из космоса', title: 'Голубая планета' },
     { id: 2, src: '/gallery/jupiter.jpg', alt: 'Юпитер', title: 'Газовый гигант' },
@@ -24,6 +25,10 @@ const HomePage = () => {
   // Продублируем изображения для бесшовной анимации
   const allImages = [...galleryImages, ...galleryImages];
 
+    const openImageDetail = (imageId) => {
+    navigate(`/gallery/${imageId}`);
+  }; 
+  
   return (
     <div className="home-page">
       <div className="video-background">
@@ -95,7 +100,14 @@ const HomePage = () => {
           <div className="gallery-container">
             <div className="gallery-track" ref={galleryRef}>
               {allImages.map((image, index) => (
-                <div className="gallery-item" key={`${image.id}-${index}`}>
+                <div   className="gallery-item" 
+    key={`${image.id}-${index}`}
+    onClick={() => openImageDetail(image.id)} // ← Изменить здесь
+    role="button"
+    tabIndex={0}
+    onKeyDown={(e) => e.key === 'Enter' && openImageDetail(image.id)}
+    aria-label={`Открыть ${image.title} в полном размере`}
+  >
                   <div className="image-wrapper">
                     <img 
                       src={image.src} 
