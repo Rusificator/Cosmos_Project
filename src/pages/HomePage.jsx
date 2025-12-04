@@ -8,7 +8,9 @@ const HomePage = () => {
   const navigate = useNavigate();
   const galleryRef = useRef(null);
   const statsRef = useRef(null);
+  const timelineRef = useRef(null);
   const [statsVisible, setStatsVisible] = useState(false);
+  const [timelineVisible, setTimelineVisible] = useState(false);
 
   const startJourney = () => {
     navigate('/planets');
@@ -32,46 +34,124 @@ const HomePage = () => {
     navigate(`/gallery/${imageId}`);
   };
 
-  // Наблюдатель за появлением статистики в viewport
+  // Массив с событиями для timeline
+  const timelineEvents = [
+    { 
+      year: '1957', 
+      title: 'Первый искусственный спутник', 
+      description: 'Советский Союз запускает Спутник-1, начало космической эры',
+      icon: '🛰️'
+    },
+    { 
+      year: '1961', 
+      title: 'Первый человек в космосе', 
+      description: 'Юрий Гагарин на корабле "Восток-1" совершает первый полет человека в космос',
+      icon: '👨‍🚀'
+    },
+    { 
+      year: '1969', 
+      title: 'Первая высадка на Луну', 
+      description: 'Аполлон-11, Нил Армстронг делает первые шаги по поверхности Луны',
+      icon: '🌕'
+    },
+    { 
+      year: '1971', 
+      title: 'Первая орбитальная станция', 
+      description: 'Запуск станции Салют-1, первая в мире орбитальная станция',
+      icon: '🛸'
+    },
+    { 
+      year: '1990', 
+      title: 'Телескоп Хаббл', 
+      description: 'Запуск космического телескопа Хаббл, революция в астрономии',
+      icon: '🔭'
+    },
+    { 
+      year: '1998', 
+      title: 'Начало МКС', 
+      description: 'Запуск первого модуля Международной космической станции',
+      icon: '🚀'
+    },
+    { 
+      year: '2012', 
+      title: 'Марсоход Curiosity', 
+      description: 'Марсоход успешно садится на Марс и начинает исследования',
+      icon: '🤖'
+    },
+    { 
+      year: '2021', 
+      title: 'Первые туристы в космосе', 
+      description: 'Компании SpaceX и Blue Origin отправляют первых космических туристов',
+      icon: '👩‍🚀'
+    }
+  ];
+
+  // Наблюдатель за появлением статистики
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const statsObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setStatsVisible(true);
-            observer.unobserve(entry.target);
+            statsObserver.unobserve(entry.target);
           }
         });
       },
       {
-        threshold: 0.3, // Сработает когда 30% элемента видно
+        threshold: 0.3,
         rootMargin: '0px 0px -100px 0px'
       }
     );
 
-
-    
-
     if (statsRef.current) {
-      observer.observe(statsRef.current);
+      statsObserver.observe(statsRef.current);
     }
 
     return () => {
       if (statsRef.current) {
-        observer.unobserve(statsRef.current);
+        statsObserver.unobserve(statsRef.current);
       }
     };
   }, []);
-useEffect(() => {
-  if (statsVisible) {
-    // Ждем немного для плавного появления
-    const timer = setTimeout(() => {
-      initStatsAnimation();
-    }, 300);
-    
-    return () => clearTimeout(timer);
-  }
-}, [statsVisible]);
+
+  // Наблюдатель за появлением timeline
+  useEffect(() => {
+    const timelineObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setTimelineVisible(true);
+            timelineObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: '0px 0px -100px 0px'
+      }
+    );
+
+    if (timelineRef.current) {
+      timelineObserver.observe(timelineRef.current);
+    }
+
+    return () => {
+      if (timelineRef.current) {
+        timelineObserver.unobserve(timelineRef.current);
+      }
+    };
+  }, []);
+
+  // Запуск анимации чисел
+  useEffect(() => {
+    if (statsVisible) {
+      const timer = setTimeout(() => {
+        initStatsAnimation();
+      }, 300);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [statsVisible]);
 
   return (
     <div className="home-page">
@@ -131,82 +211,118 @@ useEffect(() => {
         </div>
       </section>
 
-     
+      {/* Секция "Космический прогресс" (Timeline) */}
+      <section className="timeline-section" ref={timelineRef}>
+        <div className="container">
+          <div className="timeline-header">
+            <h2>Космический прогресс</h2>
+            <p className="timeline-subtitle">
+              Ключевые вехи в освоении космоса: от первых спутников до межзвездных миссий
+            </p>
+          </div>
+          
+          <div className="timeline-container">
+            <div className="timeline-line"></div>
+            
+            {timelineEvents.map((event, index) => (
+              <div 
+                className={`timeline-item ${timelineVisible ? 'visible' : ''}`} 
+                key={index}
+                style={{ '--index': index }}
+              >
+                <div className="timeline-marker">
+                  <div className="marker-icon">{event.icon}</div>
+                  <div className="marker-year">{event.year}</div>
+                </div>
+                
+                <div className="timeline-content">
+                  <h3 className="timeline-title">{event.title}</h3>
+                  <p className="timeline-description">{event.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="timeline-note">
+            <p>История продолжается: новые миссии планируются каждый год</p>
+          </div>
+        </div>
+      </section>
 
-{/* Секция интерактивной статистики */}
-<section className="statistics-section" ref={statsRef}>
-  <div className="container">
-    <div className="statistics-header">
-      <h2>Космос в цифрах</h2>
-      <p className="statistics-subtitle">
-        Удивительные факты о нашей Вселенной, которые заставят вас задуматься
-      </p>
-    </div>
-    
-    <div className="statistics-grid">
-      <div className="stat-item">
-        <div className="stat-line"></div> {/* Добавляем элемент линии */}
-        <div className="stat-icon">🪐</div>
-        <div className="stat-number-container">
-          <span className="stat-number" data-target="8">
-            {statsVisible ? '0' : '0'}
-          </span>
+      {/* Секция интерактивной статистики */}
+      <section className="statistics-section" ref={statsRef}>
+        <div className="container">
+          <div className="statistics-header">
+            <h2>Космос в цифрах</h2>
+            <p className="statistics-subtitle">
+              Удивительные факты о нашей Вселенной, которые заставят вас задуматься
+            </p>
+          </div>
+          
+          <div className="statistics-grid">
+            <div className="stat-item">
+              <div className="stat-line"></div>
+              <div className="stat-icon">🪐</div>
+              <div className="stat-number-container">
+                <span className="stat-number" data-target="8">
+                  {statsVisible ? '0' : '0'}
+                </span>
+              </div>
+              <div className="stat-label">
+                <span className="stat-label-main">планет</span>
+                <span className="stat-label-sub">в Солнечной системе</span>
+              </div>
+            </div>
+            
+            <div className="stat-item">
+              <div className="stat-line"></div>
+              <div className="stat-icon">🌕</div>
+              <div className="stat-number-container">
+                <span className="stat-number" data-target="200">
+                  {statsVisible ? '0' : '0'}
+                </span>
+              </div>
+              <div className="stat-label">
+                <span className="stat-label-main">спутников</span>
+                <span className="stat-label-sub">вращается вокруг планет</span>
+              </div>
+            </div>
+            
+            <div className="stat-item">
+              <div className="stat-line"></div>
+              <div className="stat-icon">☄️</div>
+              <div className="stat-number-container">
+                <span className="stat-number" data-target="500000">
+                  {statsVisible ? '0' : '0'}
+                </span>
+                <span className="stat-plus">+</span>
+              </div>
+              <div className="stat-label">
+                <span className="stat-label-main">космических объектов</span>
+                <span className="stat-label-sub">отслеживается NASA</span>
+              </div>
+            </div>
+            
+            <div className="stat-item">
+              <div className="stat-line"></div>
+              <div className="stat-icon">🚀</div>
+              <div className="stat-number-container">
+                <span className="stat-number" data-target="197">
+                  {statsVisible ? '0' : '0'}
+                </span>
+              </div>
+              <div className="stat-label">
+                <span className="stat-label-main">космических миссий</span>
+                <span className="stat-label-sub">успешно выполнено</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="statistics-note">
+            <p>Все числа основаны на актуальных научных данных и обновляются по мере получения новой информации</p>
+          </div>
         </div>
-        <div className="stat-label">
-          <span className="stat-label-main">планет</span>
-          <span className="stat-label-sub">в Солнечной системе</span>
-        </div>
-      </div>
-      
-      <div className="stat-item">
-        <div className="stat-line"></div> {/* Добавляем элемент линии */}
-        <div className="stat-icon">🌕</div>
-        <div className="stat-number-container">
-          <span className="stat-number" data-target="200">
-            {statsVisible ? '0' : '0'}
-          </span>
-        </div>
-        <div className="stat-label">
-          <span className="stat-label-main">спутников</span>
-          <span className="stat-label-sub">вращается вокруг планет</span>
-        </div>
-      </div>
-      
-      <div className="stat-item">
-        <div className="stat-line"></div> {/* Добавляем элемент линии */}
-        <div className="stat-icon">☄️</div>
-        <div className="stat-number-container">
-          <span className="stat-number" data-target="500000">
-            {statsVisible ? '0' : '0'}
-          </span>
-          <span className="stat-plus">+</span>
-        </div>
-        <div className="stat-label">
-          <span className="stat-label-main">космических объектов</span>
-          <span className="stat-label-sub">отслеживается NASA</span>
-        </div>
-      </div>
-      
-      <div className="stat-item">
-        <div className="stat-line"></div> {/* Добавляем элемент линии */}
-        <div className="stat-icon">🚀</div>
-        <div className="stat-number-container">
-          <span className="stat-number" data-target="197">
-            {statsVisible ? '0' : '0'}
-          </span>
-        </div>
-        <div className="stat-label">
-          <span className="stat-label-main">космических миссий</span>
-          <span className="stat-label-sub">успешно выполнено</span>
-        </div>
-      </div>
-    </div>
-    
-    <div className="statistics-note">
-      <p>Все числа основаны на актуальных научных данных и обновляются по мере получения новой информации</p>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* Секция галереи */}
       <section className="auto-gallery-section">
